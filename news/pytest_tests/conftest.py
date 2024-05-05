@@ -1,12 +1,9 @@
-# conftest.py
 from datetime import timedelta
+
 import pytest
-
-# Импортируем класс клиента.
-from django.utils import timezone
 from django.test.client import Client
+from django.utils import timezone
 
-# Импортируем модель заметки, чтобы создать экземпляр.
 from news.models import Comment, News
 from yanews import settings
 
