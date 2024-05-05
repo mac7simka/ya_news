@@ -80,13 +80,13 @@ def comment(author, news):
 
 
 @pytest.fixture
-def all_comments(not_author_client, news):
+def all_comments(author_client, news):
     now = timezone.now()
     all_comments = [
         Comment(
             news=news,
             text=f'Текст комментария {index}.',
-            author=not_author_client,
+            author=author_client,
             created=now - timedelta(days=index)
         )
         for index in range(NUMBER_OF_COMMENTS)
@@ -94,6 +94,15 @@ def all_comments(not_author_client, news):
     News.objects.bulk_create(all_comments)
 
 
-#@pytest.fixture
-#def comment_id_for_args(comment):
-#    return (comment.id,)
+@pytest.fixture
+def form_data(news, author_client):
+    return {
+        'news': news,
+        'author': author_client,
+        'text': 'Текст комментария'
+    }
+
+
+@pytest.fixture
+def commens_id_for_args(comment):
+    return (comment.id,)
